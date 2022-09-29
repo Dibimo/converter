@@ -1,0 +1,31 @@
+{
+  "name": "converter",
+  "version": "1.0.0",
+  "description": "converter",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "csjs": "csjs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dibimo/converter.git"
+  },
+  "keywords": [
+    "converter"
+  ],
+  "author": "dibimo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dibimo/converter/issues"
+  },
+  "homepage": "https://github.com/Dibimo/converter#readme",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "clipboardy": "^3.0.0",
+    "lolcatjs": "^2.4.1"
+  }
+}
