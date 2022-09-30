@@ -61,6 +61,13 @@ function main(codigoCS) {
 </script>
 
 <style>
+    *,
+    *::before,
+    *::after{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
     html, body{
         width: 100%;
         margin: 0;
@@ -83,6 +90,29 @@ function main(codigoCS) {
     main > div{
         width: 300px;
         height: 300px;
+        overflow: hidden;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    main > div::before{
+        content: '';
+        z-index: -1;
+        width: 305px;
+        height: 305px;
+        margin: -3px;
+        border-radius: 5px;
+        position: absolute;
+        /* transition: .5s; */
+        background: conic-gradient(
+            #fd004c,
+            #fe9000,
+            #fff020,
+            #3edf4b,
+            #3363ff,
+            #b102b7,
+            #fd004c
+        );
+        /* animation: spin 1.5s infinite linear; */
     }
 
     .codigo{
@@ -91,11 +121,42 @@ function main(codigoCS) {
         height: 100%;
         background-color: #21252b;
         border-radius: 5px;
-        border-color: #d19a66;
+        border-color: transparent;
         color: #606368;
     }
+
     .codigo:focus{
         outline: none;
+    }
+
+    @keyframes spin {
+        100%{
+            transform: rotate(-360deg);
+        }
+    }
+    @keyframes teste {
+        0%{
+            background: conic-gradient(
+                #fd004c,
+                #fe9000,
+                #fff020,
+                #3edf4b,
+                #3363ff,
+                #b102b7,
+                #fd004c
+            );
+        }
+        100%{
+            background: conic-gradient(
+                #3363ff,
+                #fd004c,
+                #fe9000,
+                #fff020,
+                #3edf4b,
+                #b102b7,
+                #fd004c
+            );
+        }
     }
 </style>
 
