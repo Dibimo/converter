@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de classes C# para classes Javascript</title>
+</head>
+<body>
+    <main>
+        <div class="lado-cs">
+            <textarea spellcheck="false" class="codigo"></textarea>
+        </div>
+        <div class="lado-js">
+            <textarea spellcheck="false" class="codigo"></textarea>
+        </div>
+    </main>
+</body>
+</html>
+
+<script>
+const editorCs = document.querySelector('.lado-cs textarea');
+editorCs.addEventListener('input', (e)=>{
+    main(e.target.value);
+})
+function main(codigoCS) {
+    const regexPropsCs = /public .+ .+;/gm;
+    const propsCs = codigoCS.match(regexPropsCs);
+
+    var classeJs = `constructor () {
+    $
+}`
+    if(propsCs == null){
+        return;
+    }
+    const valoresIniciais = {
+        string: `''`,
+        guid: `''`,
+        int: 0,
+        double: 0,
+        float: 0,
+        object: '{}',
+        list: `[]`,
+        ienumerable: `[]`,
+        bool: 'false',
+    }
+    propsCs.forEach(propriedade => {
+        let propriedadeSepadara = propriedade.split(' ')
+
+        let nomeTipo = propriedadeSepadara[1].replace('?', '').replace(/<.+>/gm,'').toLocaleLowerCase();
+        let nomeVariavel = propriedadeSepadara[2].replaceAll(';', '');
+        classeJs =  classeJs.replaceAll(`$`, `this.${nomeVariavel} = ${valoresIniciais[nomeTipo] != undefined ? valoresIniciais[nomeTipo] : '{}' };
+    $`);
+
+    });
+
+    classeJs = classeJs.replaceAll('$', '');
+    document.querySelector('.lado-js textarea').value = classeJs
+
+}
+</script>
+
+<style>
+    html, body{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    body {
+        height: 100%;
+        background-color: #282c34;
+    }
+
+    main{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    main > div{
+        width: 300px;
+        height: 300px;
+    }
+
+    .codigo{
+        resize: none;
+        width: 100%;
+        height: 100%;
+        background-color: #21252b;
+        border-radius: 5px;
+        border-color: #d19a66;
+        color: #606368;
+    }
+    .codigo:focus{
+        outline: none;
+    }
+</style>
+

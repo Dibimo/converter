@@ -15,13 +15,23 @@ export function cli(args) {
         lolcatjs.fromString('Propriedades não encontradas');
         return;
     }
+    const valoresIniciais = {
+        string: `''`,
+        guid: `''`,
+        int: 0,
+        double: 0,
+        float: 0,
+        object: '{}',
+        list: `[]`,
+        ienumerable: `[]`,
+        bool: 'false',
+    }
     propsCs.forEach(propriedade => {
         let propriedadeSepadara = propriedade.split(' ')
 
-        let nomeTipo = propriedadeSepadara[1].replace('?', '');
-        let nomeVariavel = propriedadeSepadara[2].replace(';', '');
-
-        classeJs =  classeJs.replaceAll(`$`, `this.${nomeVariavel} = {};
+        let nomeTipo = propriedadeSepadara[1].replace('?', '').replace(/<.+>/gm, '').toLocaleLowerCase();
+        let nomeVariavel = propriedadeSepadara[2].replaceAll(';', '');
+        classeJs = classeJs.replaceAll(`$`, `this.${nomeVariavel} = ${valoresIniciais[nomeTipo] != undefined ? valoresIniciais[nomeTipo] : '{}' };
     $`);
 
     });
